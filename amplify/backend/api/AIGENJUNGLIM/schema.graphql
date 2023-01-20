@@ -1,0 +1,20 @@
+type Styles @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  aipromptID: ID! @index(name: "byAIprompt")
+}
+
+type Sizes @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  small: String
+  medium: String
+  large: String
+}
+
+type AIprompt @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Obj: String
+  Sizes: Sizes @hasOne
+  images: AWSURL
+  Styles: [Styles] @hasMany(indexName: "byAIprompt", fields: ["id"])
+}
+ 
